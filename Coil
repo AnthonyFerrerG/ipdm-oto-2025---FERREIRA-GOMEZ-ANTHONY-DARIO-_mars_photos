@@ -1,0 +1,15 @@
+@Composable
+fun MarsPhotoGrid(photos: List<MarsPhoto>) {
+  LazyVerticalGrid(columns = GridCells.Adaptive(150.dp)) {
+    items(photos) { photo ->
+      Image(
+        painter = rememberImagePainter(photo.imgSrc),
+        contentDescription = photo.id,
+        modifier = Modifier
+          .padding(4.dp)
+          .size(150.dp),
+        contentScale = ContentScale.Crop,
+      )
+    }
+  }
+}
