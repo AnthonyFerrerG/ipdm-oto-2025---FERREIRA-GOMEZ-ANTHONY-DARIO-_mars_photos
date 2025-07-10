@@ -1,0 +1,19 @@
+class MainActivity : ComponentActivity() {
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    val repo = NetworkModule.provideMarsPhotoRepo(
+      NetworkModule.provideMarsApiService(NetworkModule.provideRetrofit())
+    )
+    val vm = MarsPhotoViewModel(repo)
+
+    setContent {
+      MaterialTheme {
+        if (vm.errorMessage != null) {
+          Text("Error: ${vm.errorMessage}")
+        } else {
+          MarsPhotoGrid(vm.photos)
+        }
+      }
+    }
+  }
+}
