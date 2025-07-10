@@ -1,0 +1,20 @@
+class MarsPhotoViewModel(
+  private val repo: MarsPhotoRepository
+) : ViewModel() {
+  var photos by mutableStateOf<List<MarsPhoto>>(emptyList())
+    private set
+
+  var errorMessage by mutableStateOf<String?>(null)
+
+  init { fetchPhotos() }
+
+  private fun fetchPhotos() {
+    viewModelScope.launch {
+      try {
+        photos = repo.getPhotos()
+      } catch (e: Exception) {
+        errorMessage = e.localizedMessage
+      }
+    }
+  }
+}
