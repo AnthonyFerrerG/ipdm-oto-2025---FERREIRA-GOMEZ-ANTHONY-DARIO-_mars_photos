@@ -1,0 +1,9 @@
+interface MarsPhotoRepository {
+  suspend fun getPhotos(): List<MarsPhoto>
+}
+
+class DefaultMarsPhotoRepository(
+  private val service: MarsApiService
+) : MarsPhotoRepository {
+  override suspend fun getPhotos(): List<MarsPhoto> = service.getPhotos()
+}
